@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[
+trigger ${1:<TriggerName>} on ${2:<ObjectName>} (before insert, before update) {{
+	${3:<Trigger Logic>}
+}
+]]></content>
+	<tabTrigger>ift</tabTrigger>
+	<!-- <scope>source.trigger</scope> -->
+</snippet>

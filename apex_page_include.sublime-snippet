@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[
+<apex:page controller="${1:ControllerClassName}">
+	${2:Page Content}
+</apex:page>
+]]></content>
+	<tabTrigger>ifp</tabTrigger>
+	<!-- <scope>source.page</scope> -->
+</snippet>

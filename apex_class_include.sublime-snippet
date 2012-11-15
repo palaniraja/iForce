@@ -1,0 +1,9 @@
+<snippet>
+	<content><![CDATA[
+public with sharing class ${1:<YourClassName>}{
+	${2:<Definition>}
+}
+]]></content>
+	<tabTrigger>ifc</tabTrigger>
+	<!-- <scope>source.cls</scope> -->
+</snippet>
