@@ -16,6 +16,12 @@ If you are using Force.com IDE or Eclipse as your primary IDE, chances are you h
 * Snippets - Create new Class/Trigger/Page with tab triggers (ifc, ift and ifp)
 * Syntax auto-set (*.cls, *.trigger and *.page)
 
+###References
+- [Screenshots] (http://palaniraja.github.com/iForce/)
+
+####Inspiration
+- [ForceDotBundle] (https://github.com/joshbirk/ForceDotBundle)
+- [MavensMate] (https://github.com/joeferraro/MavensMate-SublimeText)
 
 ***
 ###License
