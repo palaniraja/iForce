@@ -70,7 +70,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 			if payloadMetaTag == 'ApexPage':
 				metaFileContent = '<?xml version="1.0" encoding="UTF-8"?>\n<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata"><apiVersion>25.0</apiVersion><description>'+pfilename+'</description><label>'+pfilename+'</label></ApexPage>'
 			else:
-				metaFileContent = '<?xml version="1.0" encoding="UTF-8"?>\n<'+payloadMetaTag+' xmlns="http://soap.sforce.com/2006/04/metadata"><apiVersion>22.0</apiVersion><status>Active</status></'+payloadMetaTag+'>'
+				metaFileContent = '<?xml version="1.0" encoding="UTF-8"?>\n<'+payloadMetaTag+' xmlns="http://soap.sforce.com/2006/04/metadata"><apiVersion>25.0</apiVersion><status>Active</status></'+payloadMetaTag+'>'
 			metaFile = self.payloadFolder + '/' + self.payloadType + '/' + fileTail + '-meta.xml'
 			fhandle = open(metaFile,'w')
 			fhandle.write(metaFileContent) 
