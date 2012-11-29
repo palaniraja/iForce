@@ -13,6 +13,10 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 	antBin = None
 
 	def run(self, *args, **kwargs):
+
+		if self.window.active_view().is_dirty(): 
+			self.window.active_view().run_command('save')
+
 		if platform.system() == 'Windows':
 			self.pathSep = '\\'
 			self.antBin = 'ant.bat'
