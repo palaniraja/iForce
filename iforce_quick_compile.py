@@ -89,7 +89,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 			fhandle.write(packageFileContent)
 			fhandle.close()
 
-			self.window.run_command('exec', {'cmd': [self.antBin, "-file", "iForce_build.xml", "-propertyfile", "iForce_buid.properties", "qcompile"], 'working_dir':self.prjFolder})
+			self.window.run_command('exec', {'cmd': [self.antBin, "-file", "iForce_build.xml", "-propertyfile", "iForce_build.properties", "qcompile"], 'working_dir':self.prjFolder})
 
 		except Exception, e:
 			print 'iForce: You should run with a file open.'
