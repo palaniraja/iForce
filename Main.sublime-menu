@@ -1,18 +1,17 @@
-[  
-	{  
+[
+	{
 	    "id": "iForce",
-	    "caption": "iForce",  
-	    "children":  
-	    [  
+	    "caption": "iForce",
+	    "children":
+	    [
 	        {
-	        	"id": "projects", 
-	    		"caption": "Project",  
+	        	"id": "projects",
+	    		"caption": "Project",
 	         	"children":
 	         	[
 	         		{
 	         			"caption": "Start New Project",
-	         			"command": "iforce_start_new_project",
-	         			"args": {"file": "/iForce/SFtemp.zip"}
+	         			"command": "iforce_start_new_project"
 	         		},
 	         		{
 	         			"caption": "Refresh from server",
@@ -21,8 +20,8 @@
 	         	]
 	     	},
 			{
-	        	"id": "buildfiles", 
-	    		"caption": "Build Files",  
+	        	"id": "buildfiles",
+	    		"caption": "Build Files",
 	         	"children":
 	         	[
 	         		{
@@ -32,10 +31,10 @@
 	         	]
 	     	},
 	     	{
-	        	"id": "iforce_about", 
+	        	"id": "iforce_about",
 	    		"caption": "About",
 	    		"command": "iforce_goto_github"
 	     	}
-	    ]  
-	}  
-]  
+	    ]
+	}
+]

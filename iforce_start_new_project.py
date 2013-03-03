@@ -1,6 +1,6 @@
 import os
 import urllib
-import zipfile
+import shutil
 
 import sublime, sublime_plugin
 
@@ -21,32 +21,33 @@ def getunzipped(theurl, thedir):
   except zipfile.error, e:
     print "iForce: Bad zipfile (from %r): %s" % (theurl, e)
     return
-  
-def extract(zipfilepath, extractiondir):
-    zip = zipfile.ZipFile(zipfilepath)
-    zip.extractall(path=extractiondir) 
 
 class iforce_start_new_projectCommand(sublime_plugin.WindowCommand):
-
-  sfTempArchive = ''
-  outputdir = ''
 
   def __init__(self, *args, **kwargs):
     super(iforce_start_new_projectCommand, self).__init__(*args, **kwargs)
 
   def on_done(self, dirname):
     # print 'dirname: ' + dirname
-    self.outputdir = dirname
+    outputdir = dirname
+    iforce_path = sublime.packages_path() + '/iForce'
+
+    # copy build files to folder
+    shutil.copy(iforce_path + '/iForce_build.xml', outputdir)
+    shutil.copy(iforce_path + '/iForce_build.properties', outputdir)
+
+    # copy package.xml and generate project folders
+    shutil.copy(iforce_path + '/package.xml', outputdir)
+    for folder in ['classes', 'components', 'pages', 'triggers']:
+      if not os.path.exists(outputdir + '/' + folder):
+        os.makedirs(outputdir + '/' + folder)
+
     # print 'outputdir: '+ self.outputdir
-    extract(self.sfTempArchive, self.outputdir)
     print 'iForce: iforce_start_new_project [DONE]'
-    
+
 
   def run(self, *args, **kwargs):
     initialFolder = self.window.folders()[0]
-    # self.getunzipped('http://localhost/sublime/SFtemp.zip', os.getcwd())
-    #getunzipped('http://localhost/sublime/SFtemp.zip', os.getcwd())
-    self.sfTempArchive = sublime.packages_path() + kwargs.get('file')
     # print 'Archive: ' + self.sfTempArchive
     self.window.show_input_panel(
                 "iForce: Select a location to setup this project: ",
@@ -55,4 +56,3 @@ class iforce_start_new_projectCommand(sublime_plugin.WindowCommand):
                 None,
                 None
             )
-    
