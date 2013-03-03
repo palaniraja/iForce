@@ -14,7 +14,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 
 	def run(self, *args, **kwargs):
 
-		if self.window.active_view().is_dirty(): 
+		if self.window.active_view().is_dirty():
 			self.window.active_view().run_command('save')
 
 		if platform.system() == 'Windows':
@@ -38,7 +38,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 		try:
 			self.currentFile = self.window.active_view().file_name()
 			print 'iForce: Current File: ' + self.currentFile
-			
+
 			fileHead, fileTail = os.path.split(self.currentFile)
 			print 'iForce: Filename: '+ fileTail + ' head: '+fileHead
 
@@ -56,7 +56,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 				payloadMetaTag = 'ApexTrigger'
 			else:
 				print 'iForce: you can only compile class/page/trigger'
-			
+
 			print 'iForce: payloadmeta ' + payloadMetaTag
 
 			# create dir
@@ -68,28 +68,28 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 
 			pfilename, pfileext = os.path.splitext(fileTail)
 			print 'iForce: filename without extension ' + pfilename
-			
 
-			# write meta file	
+
+			# write meta file
 			if payloadMetaTag == 'ApexPage':
 				metaFileContent = '<?xml version="1.0" encoding="UTF-8"?>\n<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata"><apiVersion>25.0</apiVersion><description>'+pfilename+'</description><label>'+pfilename+'</label></ApexPage>'
 			else:
 				metaFileContent = '<?xml version="1.0" encoding="UTF-8"?>\n<'+payloadMetaTag+' xmlns="http://soap.sforce.com/2006/04/metadata"><apiVersion>25.0</apiVersion><status>Active</status></'+payloadMetaTag+'>'
 			metaFile = self.payloadFolder + '/' + self.payloadType + '/' + fileTail + '-meta.xml'
 			fhandle = open(metaFile,'w')
-			fhandle.write(metaFileContent) 
+			fhandle.write(metaFileContent)
 			fhandle.close()
 
 			# write package file
 			packageFileContent = '<?xml version="1.0" encoding="UTF-8"?>\n<Package xmlns="http://soap.sforce.com/2006/04/metadata"> <types> <members>'+pfilename+'</members> <name>'+payloadMetaTag+'</name> </types> <version>22.0</version> </Package>'
-			packageFile = self.payloadFolder + '/package.xml' 
-			
+			packageFile = self.payloadFolder + '/package.xml'
+
 
 			fhandle = open(packageFile,'w')
-			fhandle.write(packageFileContent) 
+			fhandle.write(packageFileContent)
 			fhandle.close()
 
-			self.window.run_command('exec', {'cmd': [self.antBin, "qcompile"], 'working_dir':self.prjFolder})
+			self.window.run_command('exec', {'cmd': [self.antBin, "-file", "iForce_build.xml", "-propertyfile", "iForce_buid.properties", "qcompile"], 'working_dir':self.prjFolder})
 
 		except Exception, e:
 			print 'iForce: You should run with a file open.'
