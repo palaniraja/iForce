@@ -14,7 +14,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 
 	def run(self, *args, **kwargs):
 
-		if self.window.active_view().is_dirty(): 
+		if self.window.active_view().is_dirty():
 			self.window.active_view().run_command('save')
 
 		if platform.system() == 'Windows':
@@ -38,7 +38,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 		try:
 			self.currentFile = self.window.active_view().file_name()
 			print 'iForce: Current File: ' + self.currentFile
-			
+
 			fileHead, fileTail = os.path.split(self.currentFile)
 			print 'iForce: Filename: '+ fileTail + ' head: '+fileHead
 
@@ -56,7 +56,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 				payloadMetaTag = 'ApexTrigger'
 			else:
 				print 'iForce: you can only compile class/page/trigger'
-			
+
 			print 'iForce: payloadmeta ' + payloadMetaTag
 
 			# create dir
