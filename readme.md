@@ -19,7 +19,7 @@ If you are using Force.com IDE or Eclipse as your primary IDE, chances are you h
 ###Planned to implement in future
 *  Keep changesets in local git repo
 *  Option to run SOQL query without leaving sublimetext
-*  Get fields of a an object by selecting object name.
+*  Get fields of an object by selecting object name.
 *  Execute selected code and return results (Developer console)
 
 ###References
