@@ -15,5 +15,4 @@ class iforce_refresh_from_serverCommand(sublime_plugin.WindowCommand):
 		self.currentProjectFolder = self.window.folders()[0]
 		print 'iForce: Prj Path: ' + self.currentProjectFolder
 		# os.chdir(folder)
-		self.window.run_command('exec', {'cmd': [self.antBin, "getLatest"], 'working_dir':self.currentProjectFolder})
-
+                self.window.run_command('exec', {'cmd': [self.antBin, "-file", "iForce_build.xml", "-propertyfile", "iForce_build.properties", "getLatest"], 'working_dir':self.currentProjectFolder})

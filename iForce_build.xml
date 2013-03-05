@@ -1,0 +1,31 @@
+<project default="env" basedir="." xmlns:sf="antlib:com.salesforce">
+
+    <property file="build.properties"/>
+    <property environment="env"/>
+    <target name="env" description="Prints build parameters">
+        <echo>
+            Global settings:
+                username = ${username}
+                password = ${password}
+                serverurl = ${serverurl}
+        </echo>
+    </target>
+
+    <!-- quickcompile -->
+    <target name="qcompile">
+        <sf:deploy username="${username}" password="${password}" serverurl="${serverurl}" deployRoot="payload"></sf:deploy>
+    </target>
+
+    <!-- refresh from server -->
+    <target name="getLatest">
+        <sf:retrieve
+            username="${username}"
+            password="${password}"
+            serverurl="${serverurl}"
+            retrieveTarget="./"
+            pollWaitMillis="10000"
+            maxPoll="100"
+            unpackaged="./package.xml"/>
+    </target>
+
+</project>

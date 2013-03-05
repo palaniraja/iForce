@@ -1,15 +1,14 @@
 [
-    { 
-	    "caption": "iForce: Create an empty project", 
-	    "command": "iforce_start_new_project",
-        "args": {"file": "/iForce/SFtemp.zip"}
+    {
+	    "caption": "iForce: Create an empty project",
+	    "command": "iforce_start_new_project"
     },
-    { 
-    	"caption": "iForce: Refresh from server", 
-    	"command": "iforce_refresh_from_server" 
+    {
+    	"caption": "iForce: Refresh from server",
+    	"command": "iforce_refresh_from_server"
     },
-    { 
-    	"caption": "iForce: Quick compile", 
-    	"command": "iforce_quick_compile" 
+    {
+    	"caption": "iForce: Quick compile",
+    	"command": "iforce_quick_compile"
     }
 ]
