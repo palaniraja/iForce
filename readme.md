@@ -29,6 +29,9 @@ If you are using Force.com IDE or Eclipse as your primary IDE, chances are you h
 - [ForceDotBundle] (https://github.com/joshbirk/ForceDotBundle)
 - [MavensMate] (https://github.com/joeferraro/MavensMate-SublimeText)
 
+###Contributions
+- [pventurino](https://github.com/pventurino)
+
 ***
 ###License
 
