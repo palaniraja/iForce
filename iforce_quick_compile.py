@@ -3,6 +3,9 @@ import shutil
 import sublime, sublime_plugin
 import logging
 
+# Constants
+PAYLOAD_FOLDER_NAME = 'payload'
+
 antBin = 'ant.bat' if platform.system() == 'Windows' else 'ant'
 
 class ObjectType:
@@ -57,12 +60,13 @@ def copy_to_payload(sourcefile, payload_path):
 	path, foldername = os.path.split(path)
 	objectType = typesByFolder.get(foldername)
 	if objectType == None:
-		raise LookupError('The file does not appear to be a Force.com file: ' + filename)
+		raise ValueError('The file does not appear to be a Force.com file: ' + filename)
 
 	# Copy files
 	targetfolder = payload_path + os.sep + foldername
 	targetfile = targetfolder + os.sep + filename
-	os.makedirs(targetfolder)
+	if not os.path.exists(targetfolder):
+		os.makedirs(targetfolder)
 	shutil.copyfile(sourcefile, targetfile)
 	if objectType.hasMetadataFile:
 		create_metadata_file(sourcefile)
@@ -101,10 +105,14 @@ def generate_package_xml(payload_path):
 	fhandle.close()
 
 
+def deploy_files(sublime_command, payload_path):
+	project_folder = os.path.dirname(payload_path)
+	sublime_command.window.run_command('exec', {'cmd': [antBin, "-file", "iForce_build.xml", "-propertyfile", "iForce_build.properties", "qcompile"], 'working_dir':project_folder})
+
+
 class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 	currentFile = None
 	prjFolder = None
-	payloadFolderName = 'payload'
 	payloadFolder = None
 
 	def run(self, *args, **kwargs):
@@ -115,7 +123,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 
 		self.prjFolder = self.window.folders()[0]
 		print 'iForce: Project folder path' + self.prjFolder
-		self.payloadFolder = self.prjFolder + os.sep + self.payloadFolderName
+		self.payloadFolder = self.prjFolder + os.sep + PAYLOAD_FOLDER_NAME
 		print 'iForce: Payload folder name' + self.payloadFolder
 
 		try:
@@ -131,12 +139,34 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 		try:
 			self.currentFile = self.window.active_view().file_name()
 			copy_to_payload(self.currentFile, self.payloadFolder)
-		except LookupError, e:
+		except ValueError, e:
 			logging.exception('iForce: Unable to copy file to payload.')
 			sublime.error_message('Unable to copy file to payload:\n' + str(e))
 			return
 
-		# write package file
+		# write package file and deploy
 		generate_package_xml(self.payloadFolder)
+		deploy_files(self, self.payloadFolder)
 
-		self.window.run_command('exec', {'cmd': [antBin, "-file", "iForce_build.xml", "-propertyfile", "iForce_build.properties", "qcompile"], 'working_dir':self.prjFolder})
+
+class iforce_quick_compile_allCommand(sublime_plugin.WindowCommand):
+
+	def run(self, *args, **kwargs):
+		# Get the list of open files
+		openfiles = map(lambda view: view.file_name(), self.window.views())
+		payloadFolder = self.window.folders()[0] + os.sep + PAYLOAD_FOLDER_NAME
+
+		if os.path.exists(payloadFolder):
+			shutil.rmtree(payloadFolder)
+		os.makedirs(payloadFolder)
+
+		# Add all open files to payload (tolerate failures)
+		for filepath in openfiles:
+			try:
+				copy_to_payload(filepath, payloadFolder)
+			except ValueError, e:
+				logging.debug(str(e))
+
+		#write package file and deploy
+		generate_package_xml(payloadFolder)
+		deploy_files(self, payloadFolder)
