@@ -162,10 +162,11 @@ class iforce_quick_compile_allCommand(sublime_plugin.WindowCommand):
 
 		# Add all open files to payload (tolerate failures)
 		for filepath in openfiles:
-			try:
-				copy_to_payload(filepath, payloadFolder)
-			except ValueError, e:
-				logging.debug(str(e))
+			if filepath != None:
+				try:
+					copy_to_payload(filepath, payloadFolder)
+				except ValueError, e:
+					logging.debug(str(e))
 
 		#write package file and deploy
 		generate_package_xml(payloadFolder)
