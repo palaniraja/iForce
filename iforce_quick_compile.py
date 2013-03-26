@@ -153,7 +153,6 @@ class iforce_quick_compile_allCommand(sublime_plugin.WindowCommand):
 
 	def run(self, *args, **kwargs):
 		# Get the list of open files
-		openfiles = map(lambda view: view.file_name(), self.window.views())
 		payloadFolder = self.window.folders()[0] + os.sep + PAYLOAD_FOLDER_NAME
 
 		if os.path.exists(payloadFolder):
@@ -161,8 +160,11 @@ class iforce_quick_compile_allCommand(sublime_plugin.WindowCommand):
 		os.makedirs(payloadFolder)
 
 		# Add all open files to payload (tolerate failures)
-		for filepath in openfiles:
+		for view in self.window.views():
+			filepath = view.file_name()
 			if filepath != None:
+				if view.is_dirty():
+					view.run_command('save')
 				try:
 					copy_to_payload(filepath, payloadFolder)
 				except ValueError, e:
