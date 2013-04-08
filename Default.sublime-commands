@@ -8,7 +8,11 @@
     	"command": "iforce_refresh_from_server"
     },
     {
-    	"caption": "iForce: Quick compile",
-    	"command": "iforce_quick_compile"
+        "caption": "iForce: Quick compile",
+        "command": "iforce_quick_compile"
+    },
+    {
+    	"caption": "iForce: Quick compile all open files",
+    	"command": "iforce_quick_compile_all"
     }
 ]
