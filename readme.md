@@ -23,7 +23,7 @@ If you are using Force.com IDE or Eclipse as your primary IDE, chances are you h
 *  Execute selected code and return results (Developer console)
 
 ###References
-- [Screenshots] (http://palaniraja.github.com/iForce/)
+- [Screenshots] (http://palaniraja.github.io/iForce/)
 
 ####Inspiration
 - [ForceDotBundle] (https://github.com/joshbirk/ForceDotBundle)
