@@ -25,6 +25,7 @@ objectTypes = [
 	ObjectType('components'     , 'ApexComponent' , 'component', True),
 	ObjectType('objects'        , 'CustomObject'  , 'object'   , False),
 	ObjectType('pages'          , 'ApexPage'      , 'page'     , True),
+	ObjectType('profiles'       , 'Profile'       , 'profile'  , False),
 	ObjectType('staticresources', 'StaticResource', 'resource' , True),
 	ObjectType('triggers'       , 'ApexTrigger'   , 'trigger'  , True)
 ]
