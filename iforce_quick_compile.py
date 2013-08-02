@@ -2,6 +2,7 @@ import os, platform
 import shutil
 import sublime, sublime_plugin
 import logging
+import re
 
 # Constants
 PAYLOAD_FOLDER_NAME = 'payload'
@@ -122,7 +123,7 @@ class iforce_quick_compileCommand(sublime_plugin.WindowCommand):
 		if self.window.active_view().is_dirty():
 			self.window.active_view().run_command('save')
 
-		self.prjFolder = self.window.folders()[0]
+		self.prjFolder = re.search('.*/src/',self.window.active_view().file_name()).group(0);
 		print 'iForce: Project folder path' + self.prjFolder
 		self.payloadFolder = self.prjFolder + os.sep + PAYLOAD_FOLDER_NAME
 		print 'iForce: Payload folder name' + self.payloadFolder
