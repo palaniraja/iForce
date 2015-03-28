@@ -1,3 +1,6 @@
+##Update
+I no longer use this plugin so I may not update this anytime soon. Please refer SublimeApex which does almost all the features of this plugin and many more https://github.com/xjsender/SublimeApex
+
 ##iForce - Sublime text extension to help salesforce development (windows)
 
 
