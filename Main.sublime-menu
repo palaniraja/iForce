@@ -25,11 +25,11 @@
 	         	"children":
 	         	[
 	         		{
-	         			"caption": "Quick Complile",
+	         			"caption": "Quick Compile",
 	         			"command": "iforce_quick_compile"
 	         		},
 	         		{
-	         			"caption": "Quick Complile all open files",
+	         			"caption": "Quick Compile all open files",
 	         			"command": "iforce_quick_compile_all"
 	         		}
 	         	]
